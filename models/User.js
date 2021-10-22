@@ -6,17 +6,17 @@ const userSchema = Schema({
 		require:true
 	},
 	lastName:{
-		type:String,
-		require:true
+		type: String,
+		require: true
 	},
 	mail:{
-		type:String,
+		type: String,
 		require: true,
-		unique:true,
+		unique: true,
 	},
 	password:{
-		type:String,
-		require:true,
+		type: String,
+		require: true,
 	},
 
 });

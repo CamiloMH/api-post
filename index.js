@@ -18,6 +18,10 @@ app.use(express.json());
 //Iniciamos base de datos
 dbConnection();
 
+
+//Rutas
+app.use('/api/v1/users', require('./routes/users'));
+
 //Corremos el servidor en el puerto 3000
 
 app.listen(process.env.PORT, () => {
