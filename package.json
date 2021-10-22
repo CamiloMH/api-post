@@ -1,0 +1,21 @@
+{
+  "name": "apipost",
+  "version": "1.0.0",
+  "description": "api-post",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "camilo.mh",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "2.0.14",
+    "eslint": "^8.0.1"
+  },
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}
