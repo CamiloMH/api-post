@@ -21,7 +21,11 @@ dbConnection();
 
 //Rutas
 app.use('/api/v1/users', require('./routes/users'));
-app.use('/api/v1/posts', require('./routes/posts'));
+// app.use('/api/v1/posts', require('./routes/posts'));
+
+//Auth
+app.use('/api/v1/auth', require('./routes/auth'));
+
 
 //Corremos el servidor en el puerto 3000
 
