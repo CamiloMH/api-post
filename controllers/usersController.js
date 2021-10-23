@@ -1,11 +1,32 @@
 const  bcrypt  = require('bcrypt');
 const User = require('../models/User');
 
-/* Obtener usuarios */
+/* Obtener todos los usuarios */
 const getUsers = async(request,response) =>{
 	const users = await User.find({});
 	response.json(users);
 	
+};
+
+//Obtener un usuario
+const getUser = async(request,response) =>{
+	const { id } = request.params;
+	try {
+		const userDB = await User.findById(id);
+		if(userDB === null) return response.sendStatus(404);
+
+		response.json({
+			ok:true,
+			user: userDB
+		});
+
+	} catch (error) {
+		console.log(error);
+		response.status(204).json({
+			ok: false,
+			msg: 'El usuario no existe'
+		});
+	}
 };
 
 //Creamos un usuario
@@ -116,4 +137,5 @@ module.exports = {
 	createUser,
 	removeUser,
 	updateUser,
+	getUser,
 };
