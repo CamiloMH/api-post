@@ -5,7 +5,6 @@ const User = require('../models/User');
 const getUsers = async(request,response) =>{
 	const users = await User.find({});
 	response.json(users);
-	
 };
 
 //Obtener un usuario
@@ -24,7 +23,7 @@ const getUser = async(request,response) =>{
 		console.log(error);
 		response.status(204).json({
 			ok: false,
-			msg: 'El usuario no existe'
+			msg: 'the user not found'
 		});
 	}
 };
@@ -35,7 +34,7 @@ const createUser = async(request,response) => {
 
 	try {
 		const { name, lastName, mail, password } = request.body;
-
+		
 		/* Verificamos que el mail no este ya registrado */
 		const existsMail = await User.findOne({ mail});
 		if(existsMail){
@@ -65,10 +64,9 @@ const createUser = async(request,response) => {
         
         
 	} catch (error) {
-		console.log(error);
-		response.status(500).json({
+		response.status(404).json({
 			ok: false,
-			msg: 'Error inesperado'
+			error: 'invalid request'
 		});
 	}
 };
@@ -85,7 +83,7 @@ const removeUser = async(request,response) =>{
 		console.log(error);
 		response.status(404).json({
 			ok: false,
-			msg: 'Error inesperado'
+			error: 'id used is malformed'
 		});
 	}
 
@@ -127,7 +125,7 @@ const updateUser = async(request,response) =>{
 		console.log(error);
 		response.status(404).json({
 			ok: false,
-			msg: 'Error inesperado'
+			error: 'invalid request'
 		});
 	}
 };
