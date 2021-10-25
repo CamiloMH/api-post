@@ -21,7 +21,6 @@ const getUser = async(request,response) =>{
 		});
 
 	} catch (error) {
-		console.log(error);
 		response.status(204).json({
 			msg: 'the user not found'
 		});
@@ -53,7 +52,6 @@ const createUser = async(request,response) => {
 		
 		/* Generar Token */
 		const token = await tokenJWT(user.id, user.name);
-		console.log(token);
 		/* Guardamos el usuario */
 		await user.save();
 
