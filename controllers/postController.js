@@ -53,7 +53,7 @@ const createPost = async(request,response) =>{
         
 
 	} catch (error) {
-		response.sendStatus(error.name);
+		response.sendStatus(error);
 
 	}
 
@@ -69,7 +69,7 @@ const deletePost = async(request,response) => {
 		response.status(204).end();
 		
 	} catch (error) {
-		response.sendStatus(error.name);
+		response.sendStatus(error);
 		
 	}
 };
@@ -98,8 +98,7 @@ const updatePost = async (request,response) => {
 
 		
 	} catch (error) {
-		response.sendStatus(error.name);
-
+		response.sendStatus(error);
 	}
 
 };
