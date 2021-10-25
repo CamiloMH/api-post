@@ -32,7 +32,6 @@ const login = async(request,response) => {
 
 
 	} catch (error) {
-		console.log(error);
 		response.sendStatus(404);
 	}
 
