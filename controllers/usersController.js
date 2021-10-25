@@ -38,11 +38,8 @@ const createUser = async(request,response) => {
 		/* Verificamos que el mail no este ya registrado */
 		const existsMail = await User.findOne({ mail});
 		if(existsMail){
-			return response.status(400).json({
-				ok: false,
-				msg: 'El email ya existe'
-			});
-		} 
+			return response.sendStatus(226);
+		}
 		/* Encriptamos la contraseña */
 		const saltRounds = 10;
 		const passwordHash = bcrypt.hashSync(password, saltRounds);
@@ -68,10 +65,7 @@ const createUser = async(request,response) => {
         
         
 	} catch (error) {
-		response.status(404).json({
-			ok: false,
-			error: 'invalid request'
-		});
+		response.status(400).json(error);
 	}
 };
 
@@ -86,10 +80,7 @@ const removeUser = async(request,response) =>{
 		});
 
 	} catch (error) {
-		console.log(error);
-		response.status(404).json({
-			error: 'id used is malformed'
-		});
+		response.status(400).json(error);
 	}
 
 };
@@ -99,13 +90,13 @@ const updateUser = async(request,response) =>{
 
 	try {
 		const userDB = await User.findById(id);
-		if(!userDB) return response.status(404).json({ok:false,msg:'id invalido'});
+		if(!userDB) return response.status(404).json({error: 'id used is malformed'});
 
 		const {name, lastName , mail , password} = request.body;
 
 		if(userDB.mail !== mail){
 			const existsMail = await User.findOne({mail});
-			if(existsMail) return response.status(404).json({ok:false,msg:'Ese email ya esta en uso'});
+			if(existsMail) return response.sendStatus(226);
 		}	
 
 		/* Encriptamos la contraseña */
@@ -127,10 +118,8 @@ const updateUser = async(request,response) =>{
 		});
 		
 	} catch (error) {
-		console.log(error);
-		response.status(404).json({
-			error: 'invalid request'
-		});
+		response.status(404).json(error);
+
 	}
 };
 
