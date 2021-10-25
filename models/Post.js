@@ -3,11 +3,11 @@ const { Schema, model } = require('mongoose');
 const postSchema = Schema({
 	content:{
 		type:String,
-		requiere: true
+		require: true
 	},
 	date:{
 		type:Date,
-		requiere:true
+		require:true
 	},
 	important:{
 		type:Boolean,
