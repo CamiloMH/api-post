@@ -1,5 +1,6 @@
 const  bcrypt  = require('bcrypt');
 const User = require('../models/User');
+const {tokenJWT} = require('../helpers/jwt');
 
 /* Obtener todos los usuarios */
 const getUsers = async(request,response) =>{
@@ -22,7 +23,6 @@ const getUser = async(request,response) =>{
 	} catch (error) {
 		console.log(error);
 		response.status(204).json({
-			ok: false,
 			msg: 'the user not found'
 		});
 	}
@@ -53,13 +53,17 @@ const createUser = async(request,response) => {
 			mail,
 			password : passwordHash
 		});
-
+		
+		/* Generar Token */
+		const token = await tokenJWT(user.id, user.name);
+		console.log(token);
 		/* Guardamos el usuario */
 		await user.save();
 
+
 		response.status(201).json({
-			ok: true,
-			user
+			user,
+			token
 		});
         
         
@@ -76,13 +80,14 @@ const removeUser = async(request,response) =>{
 	const { id } = request.params;
 	try {
 		const res = await User.findByIdAndDelete(id);
-		if(res === null) return response.sendStatus(404);
-		response.status(204).end();
+		if(res === null) return response.status(404).json({error: 'id used is malformed'});
+		response.status(204).json({
+			msg : 'Deleted user'
+		});
 
 	} catch (error) {
 		console.log(error);
 		response.status(404).json({
-			ok: false,
 			error: 'id used is malformed'
 		});
 	}
@@ -124,7 +129,6 @@ const updateUser = async(request,response) =>{
 	} catch (error) {
 		console.log(error);
 		response.status(404).json({
-			ok: false,
 			error: 'invalid request'
 		});
 	}
