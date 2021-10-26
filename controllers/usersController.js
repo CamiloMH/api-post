@@ -16,7 +16,6 @@ const getUser = async(request,response) =>{
 		if(userDB === null) return response.sendStatus(404);
 
 		response.json({
-			ok:true,
 			user: userDB
 		});
 
@@ -111,7 +110,6 @@ const updateUser = async(request,response) =>{
 		const userUpdate = await User.findOneAndUpdate(id,newUserInfo,{new:true});
 
 		response.json({
-			ok:true,
 			user: userUpdate
 		});
 		
